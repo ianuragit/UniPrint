@@ -12,7 +12,10 @@ export default function App() {
   const [loggerOpen, setLoggerOpen] = useState(false)
   const [selectedDate, setSelectedDate] = useState<string | undefined>(undefined)
 
-  const { entries, addEntry, deleteEntry, activityTypes, yearData } = useActivities(year)
+  const {
+    entries, addEntry, deleteEntry, activityTypes, yearData,
+    isDemoLoaded, loadDemoData, clearDemoData,
+  } = useActivities(year)
 
   function handleDayClick(dateKey: string) {
     setSelectedDate(dateKey)
@@ -52,6 +55,22 @@ export default function App() {
               <option key={y} value={y}>{y}</option>
             ))}
           </select>
+
+          {isDemoLoaded ? (
+            <button
+              onClick={clearDemoData}
+              className="rounded-lg border border-slate-600 px-4 py-1.5 text-sm text-slate-400 hover:border-rose-500 hover:text-rose-400 transition-colors focus:outline-none"
+            >
+              Clear Demo
+            </button>
+          ) : (
+            <button
+              onClick={loadDemoData}
+              className="rounded-lg border border-slate-600 px-4 py-1.5 text-sm text-slate-300 hover:border-violet-500 hover:text-violet-300 transition-colors focus:outline-none"
+            >
+              Load Demo
+            </button>
+          )}
 
           <button
             onClick={handleLogActivity}
